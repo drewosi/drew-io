@@ -1,0 +1,28 @@
+{
+  "projectId": "80a6a3ca-0628-4bf8-bc60-d1cc0e117303",
+  "pkg": "drew-io",
+  "globalName": "DrewIoDesignSystem",
+  "shape": "package",
+  "cssEntry": ".design-sync/compiled-styles.css",
+  "extraFonts": ".design-sync/fonts/fonts.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "componentSrcMap": {
+    "RadioGroup": "src/components/forms/Radio.jsx",
+    "ToastHost": "src/components/feedback/Toast.jsx"
+  },
+  "overrides": {
+    "Modal": { "cardMode": "single", "viewport": "560x400" },
+    "Toast": { "cardMode": "single", "viewport": "460x150" },
+    "ToastHost": { "cardMode": "single", "viewport": "460x170" },
+    "Sidebar": { "cardMode": "single", "viewport": "540x440" },
+    "Table": { "cardMode": "column" },
+    "ChartFrame": { "cardMode": "column" },
+    "Ticker": { "cardMode": "column" },
+    "Alert": { "cardMode": "column" },
+    "Tabs": { "cardMode": "column" },
+    "CommandPalette": { "cardMode": "single", "viewport": "560x440" },
+    "ScrollScene": { "cardMode": "single", "viewport": "560x440" },
+    "FilmGrain": { "cardMode": "single", "viewport": "460x300" },
+    "HUDCallout": { "cardMode": "column" }
+  }
+}

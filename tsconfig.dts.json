@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "outDir": "types",
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmitOnError": false,
+    "typeRoots": [".ds-sync/node_modules/@types", "node_modules/@types"]
+  },
+  "include": ["src/lib.js"]
+}

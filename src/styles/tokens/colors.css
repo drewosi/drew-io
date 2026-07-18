@@ -1,0 +1,46 @@
+/* DREW.OS — Color tokens. Glacial monochrome; dark is the default theme. */
+:root, [data-theme="dark"] {
+  /* Canvas */
+  --bg: #05080A;
+  --surface: #0A1014;
+  --surface-raised: #101820;
+  --border: #1D2A33;
+
+  /* Text */
+  --text: #E8EEF2;
+  --text-muted: #74838D;
+
+  /* Signature + accents — ice leads, glacier depths behind it */
+  --accent: #C7E2F2;        /* ice */
+  --accent-soft: #8FB4C9;   /* mist */
+  --accent-2: #4A7085;      /* glacier */
+  --accent-3: #223844;      /* depth */
+
+  /* Feedback — desaturated, cold */
+  --success: #63B9A0;
+  --warning: #CFAE72;
+  --danger: #C97A7A;
+
+  --on-accent: #05080A;
+}
+
+[data-theme="light"] {
+  --bg: #E9EEF1;
+  --surface: #F4F8FA;
+  --surface-raised: #FFFFFF;
+  --border: #D2DCE2;
+
+  --text: #0C1418;
+  --text-muted: #5C6B74;
+
+  --accent: #16303E;
+  --accent-soft: #3D5A6B;
+  --accent-2: #6E93A6;
+  --accent-3: #B4CBD8;
+
+  --success: #1F7A62;
+  --warning: #8A6A25;
+  --danger: #A63D3D;
+
+  --on-accent: #F4F8FA;
+}

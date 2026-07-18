@@ -1,0 +1,13 @@
+/* DREW.OS — Type tokens. Geist speaks quietly at large sizes; Geist Mono handles the record-keeping. */
+:root {
+  --font-sans: 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --text-display: clamp(3rem, 8vw, 6rem);   /* weight 300, -0.03em, lh 1.02 */
+  --text-h1: clamp(2.2rem, 5vw, 3.4rem);    /* weight 300, -0.02em */
+  --text-h2: clamp(1.6rem, 3vw, 2.2rem);    /* weight 400, -0.02em */
+  --text-h3: clamp(1.15rem, 2vw, 1.35rem);  /* weight 500 */
+  --text-body: 1rem;                        /* weight 400, lh 1.7 */
+  --text-small: 0.875rem;
+  --text-label: 0.6875rem;                  /* mono, 500, uppercase, 0.18em */
+}

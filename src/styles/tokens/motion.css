@@ -1,0 +1,24 @@
+/* DREW.OS — Motion. Slow, smooth, deliberate. Nothing bounces. */
+:root {
+  --snap: 400ms cubic-bezier(0.16, 1, 0.3, 1); /* long decelerating ease — reveals, transforms */
+  --ease: 250ms cubic-bezier(0.4, 0, 0.2, 1);  /* color, border, opacity */
+  --snap-fn: cubic-bezier(0.16, 1, 0.3, 1);    /* the deceleration curve alone, for keyframe animations */
+
+  /* Duration scale — new work references these; older literals remain law-abiding. */
+  --dur-tap: 150ms;      /* press feedback */
+  --dur-tint: 250ms;     /* color, border, opacity — matches --ease */
+  --dur-move: 400ms;     /* transforms — matches --snap */
+  --dur-reveal: 700ms;   /* scroll-in reveals */
+  --dur-draw: 900ms;     /* line draws, mask wipes */
+  --dur-chapter: 1200ms; /* chapter-scale veils */
+
+  /* Field response — the sanctioned positional tier. Hard caps, critically damped. */
+  --field-shift: 4px;    /* max magnetic/hover translation */
+  --field-tilt: 2deg;    /* max pointer tilt */
+  --press-scale: 0.985;  /* press compression */
+
+  /* Atmosphere */
+  --blur-veil: 14px;                                      /* focus-reveal start blur / fog blur */
+  --fog: color-mix(in srgb, var(--accent) 16%, var(--bg)); /* ice haze, follows theme */
+  --grain-alpha: 0.05;
+}

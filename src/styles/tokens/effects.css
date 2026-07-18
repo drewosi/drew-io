@@ -1,0 +1,12 @@
+/* DREW.OS — Depth tokens. No glow: faint frost tints + deep neutral shadow. */
+:root, [data-theme="dark"] {
+  --glow: rgba(199, 226, 242, 0.08);        /* frost tint — hover fills, never blur-glow */
+  --glow-strong: rgba(199, 226, 242, 0.16);
+  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] {
+  --glow: rgba(22, 48, 62, 0.06);
+  --glow-strong: rgba(22, 48, 62, 0.12);
+  --shadow-card: 0 12px 36px rgba(12, 20, 24, 0.10);
+}

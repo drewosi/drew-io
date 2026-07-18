@@ -1,0 +1,137 @@
+/* DREW.OS compiled token + base stylesheet — generated for design-sync from src/styles/tokens/*.css. Do not hand-edit; regenerate with .design-sync/build-styles.mjs. */
+
+/* ── colors.css ── */
+/* DREW.OS — Color tokens. Glacial monochrome; dark is the default theme. */
+:root, [data-theme="dark"] {
+  /* Canvas */
+  --bg: #05080A;
+  --surface: #0A1014;
+  --surface-raised: #101820;
+  --border: #1D2A33;
+
+  /* Text */
+  --text: #E8EEF2;
+  --text-muted: #74838D;
+
+  /* Signature + accents — ice leads, glacier depths behind it */
+  --accent: #C7E2F2;        /* ice */
+  --accent-soft: #8FB4C9;   /* mist */
+  --accent-2: #4A7085;      /* glacier */
+  --accent-3: #223844;      /* depth */
+
+  /* Feedback — desaturated, cold */
+  --success: #63B9A0;
+  --warning: #CFAE72;
+  --danger: #C97A7A;
+
+  --on-accent: #05080A;
+}
+
+[data-theme="light"] {
+  --bg: #E9EEF1;
+  --surface: #F4F8FA;
+  --surface-raised: #FFFFFF;
+  --border: #D2DCE2;
+
+  --text: #0C1418;
+  --text-muted: #5C6B74;
+
+  --accent: #16303E;
+  --accent-soft: #3D5A6B;
+  --accent-2: #6E93A6;
+  --accent-3: #B4CBD8;
+
+  --success: #1F7A62;
+  --warning: #8A6A25;
+  --danger: #A63D3D;
+
+  --on-accent: #F4F8FA;
+}
+
+/* ── effects.css ── */
+/* DREW.OS — Depth tokens. No glow: faint frost tints + deep neutral shadow. */
+:root, [data-theme="dark"] {
+  --glow: rgba(199, 226, 242, 0.08);        /* frost tint — hover fills, never blur-glow */
+  --glow-strong: rgba(199, 226, 242, 0.16);
+  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] {
+  --glow: rgba(22, 48, 62, 0.06);
+  --glow-strong: rgba(22, 48, 62, 0.12);
+  --shadow-card: 0 12px 36px rgba(12, 20, 24, 0.10);
+}
+
+/* ── typography.css ── */
+/* DREW.OS — Type tokens. Geist speaks quietly at large sizes; Geist Mono handles the record-keeping. */
+:root {
+  --font-sans: 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --text-display: clamp(3rem, 8vw, 6rem);   /* weight 300, -0.03em, lh 1.02 */
+  --text-h1: clamp(2.2rem, 5vw, 3.4rem);    /* weight 300, -0.02em */
+  --text-h2: clamp(1.6rem, 3vw, 2.2rem);    /* weight 400, -0.02em */
+  --text-h3: clamp(1.15rem, 2vw, 1.35rem);  /* weight 500 */
+  --text-body: 1rem;                        /* weight 400, lh 1.7 */
+  --text-small: 0.875rem;
+  --text-label: 0.6875rem;                  /* mono, 500, uppercase, 0.18em */
+}
+
+/* ── spacing.css ── */
+/* DREW.OS — Spacing (4px-based) + radii. Corners are sharp; the pill token survives for full-round cases only. */
+:root {
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 999px;
+}
+
+/* ── motion.css ── */
+/* DREW.OS — Motion. Slow, smooth, deliberate. Nothing bounces. */
+:root {
+  --snap: 400ms cubic-bezier(0.16, 1, 0.3, 1); /* long decelerating ease — reveals, transforms */
+  --ease: 250ms cubic-bezier(0.4, 0, 0.2, 1);  /* color, border, opacity */
+  --snap-fn: cubic-bezier(0.16, 1, 0.3, 1);    /* the deceleration curve alone, for keyframe animations */
+
+  /* Duration scale — new work references these; older literals remain law-abiding. */
+  --dur-tap: 150ms;      /* press feedback */
+  --dur-tint: 250ms;     /* color, border, opacity — matches --ease */
+  --dur-move: 400ms;     /* transforms — matches --snap */
+  --dur-reveal: 700ms;   /* scroll-in reveals */
+  --dur-draw: 900ms;     /* line draws, mask wipes */
+  --dur-chapter: 1200ms; /* chapter-scale veils */
+
+  /* Field response — the sanctioned positional tier. Hard caps, critically damped. */
+  --field-shift: 4px;    /* max magnetic/hover translation */
+  --field-tilt: 2deg;    /* max pointer tilt */
+  --press-scale: 0.985;  /* press compression */
+
+  /* Atmosphere */
+  --blur-veil: 14px;                                      /* focus-reveal start blur / fog blur */
+  --fog: color-mix(in srgb, var(--accent) 16%, var(--bg)); /* ice haze, follows theme */
+  --grain-alpha: 0.05;
+}
+
+/* ── base.css ── */
+/* DREW.OS — Base element styles. */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.7;
+  transition: background var(--ease), color var(--ease);
+}
+
+::selection { background: var(--accent); color: var(--on-accent); }
+
+h1, h2, h3 { font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; }
+
+a { color: var(--accent-soft); text-decoration: none; transition: color var(--ease); }
+a:hover { color: var(--accent); }
+
