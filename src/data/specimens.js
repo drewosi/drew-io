@@ -70,13 +70,13 @@ export const SPECIMENS = [
     id: 'lucid-engine',
     title: 'Lucid Engine', kind: 'DESIGN LANGUAGE', date: '2026.07',
     readout: 'MERIDIAN · 0.0000° — PRIME',
-    stack: 'SINGLE-FILE HTML / CANVAS · 0 DEPS',
+    stack: 'SINGLE-FILE HTML / CANVAS · 0 DEPS · BYO KEY',
     stats: [
-      { label: 'html files', value: 2 },
-      { label: 'dependencies', value: 0 },
-      { label: 'dna spec version', value: 1.2, decimals: 1 },
+      { label: 'html files', value: 5 },
+      { label: 'model providers', value: 3 },
+      { label: 'backend servers', value: 0 },
     ],
-    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — proven on MERIDIAN, the launch instrument for a fictional AI. Fibonacci-lattice particle sphere, command palette, debug console; one file, no build. The front door is a museum, the basement is a laboratory.',
+    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — now proven on a real product. MERIDIAN grew from launch film into a browser-only AI workbench in free beta: bring your own key, load a folder, and every answer streams back with a trace pinned to the exact lines it stands on. No backend, no third-party scripts. The front door is a museum, the basement is a laboratory.',
     link: { href: 'https://drewosi.github.io/lucid-engine/', label: 'Visit' },
   },
   {
