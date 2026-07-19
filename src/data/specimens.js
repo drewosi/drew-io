@@ -16,6 +16,7 @@
  *     stats: [                              // exactly three reads best
  *       { label: 'metric', value: 123 },
  *       { label: 'with unit', value: 100, unit: '%' },
+ *       { label: 'decimal', value: 1.2, decimals: 1 },
  *     ],
  *     summary: 'One or two sentences in the DREW.OS voice. Cold, precise, no hype.',
  *     link:    { href: 'https://…', label: 'Visit' },   // use '#/route' for internal pages
@@ -64,6 +65,19 @@ export const SPECIMENS = [
     ],
     summary: 'Every sanctioned move in the system, replayable on a bench. Deceleration only — the proof that nothing here ever bounces.',
     link: { href: '#/motion', label: 'Enter' },
+  },
+  {
+    id: 'lucid-engine',
+    title: 'Lucid Engine', kind: 'DESIGN LANGUAGE', date: '2026.07',
+    readout: 'MERIDIAN · 0.0000° — PRIME',
+    stack: 'SINGLE-FILE HTML / CANVAS · 0 DEPS',
+    stats: [
+      { label: 'html files', value: 2 },
+      { label: 'dependencies', value: 0 },
+      { label: 'dna spec version', value: 1.2, decimals: 1 },
+    ],
+    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — proven on MERIDIAN, the launch instrument for a fictional AI. Fibonacci-lattice particle sphere, command palette, debug console; one file, no build. The front door is a museum, the basement is a laboratory.',
+    link: { href: 'https://drewosi.github.io/lucid-engine/', label: 'Visit' },
   },
 ];
 

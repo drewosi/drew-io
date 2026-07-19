@@ -166,9 +166,9 @@ function DisassemblyGrid() {
 }
 
 /* One animated stat — count-up on view. */
-function SpecimenStat({ label, value, unit }) {
+function SpecimenStat({ label, value, unit, decimals }) {
   const [ref, visible] = useReveal();
-  const n = useCountUp(value, { visible });
+  const n = useCountUp(value, { visible, decimals });
   return <div ref={ref}><Stat label={label} value={n} unit={unit} /></div>;
 }
 
