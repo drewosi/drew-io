@@ -220,11 +220,13 @@ function SpecimenScene({ s, i }) {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 20, marginBottom: 30 }}>
                   {s.stats.map((st) => <SpecimenStat key={st.label} {...st} />)}
                 </div>
-                <Magnetic>
-                  {s.link.href.startsWith('#')
-                    ? <Button onClick={() => { window.location.hash = s.link.href.slice(1); }}>{s.link.label}</Button>
-                    : <Button onClick={() => { window.open(s.link.href, '_blank', 'noopener'); }}>{s.link.label}</Button>}
-                </Magnetic>
+                {s.link && (
+                  <Magnetic>
+                    {s.link.href.startsWith('#')
+                      ? <Button onClick={() => { window.location.hash = s.link.href.slice(1); }}>{s.link.label}</Button>
+                      : <Button onClick={() => { window.open(s.link.href, '_blank', 'noopener'); }}>{s.link.label}</Button>}
+                  </Magnetic>
+                )}
               </Card>
             </Tilt>
           </FocusReveal>

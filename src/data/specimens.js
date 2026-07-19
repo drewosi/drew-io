@@ -20,6 +20,10 @@
  *     summary: 'One or two sentences in the DREW.OS voice. Cold, precise, no hype.',
  *     link:    { href: 'https://…', label: 'Visit' },   // use '#/route' for internal pages
  *   }
+ *
+ * `link` is OPTIONAL — omit it until the project is deployed somewhere
+ * real. Never link to an undeployed workspace (e.g. a Replit editor page);
+ * the card renders cleanly with no button until there's a live URL.
  */
 export const SPECIMENS = [
   {
