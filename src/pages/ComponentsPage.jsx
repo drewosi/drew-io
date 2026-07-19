@@ -172,7 +172,7 @@ export function ComponentsPage() {
 
         <HairlineDraw />
         <MonoLabel muted style={{ display: 'block', marginTop: 16, fontSize: '0.6rem' }}>
-          spec complete · 31 parts · zero emoji
+          spec complete · 54 parts · zero emoji
         </MonoLabel>
       </div>
 

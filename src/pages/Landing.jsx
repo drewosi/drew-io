@@ -15,6 +15,7 @@ import { Parallax } from '../components/motion/Parallax.jsx';
 import { useReveal } from '../hooks/useReveal.js';
 import { useCountUp } from '../hooks/useCountUp.js';
 import { useScrollProgress } from '../hooks/useScrollProgress.js';
+import { SPECIMEN_COUNT } from '../data/specimens.js';
 
 /* 1px accent hairline at the very top, tracking scroll depth. */
 function ScrollProgress() {
@@ -43,11 +44,38 @@ const capabilities = [
   { index: '02.3', title: 'Systems', body: 'Tokens, components, and rules that keep every artifact on-voice.' },
 ];
 
+/* One field, one verb — Transmit opens the visitor's mail client
+   addressed to the station, carrying their reply-to address. */
+function ContactForm() {
+  const [email, setEmail] = React.useState('');
+  const transmit = () => {
+    const subject = encodeURIComponent('Signal from drew.io');
+    const body = encodeURIComponent(email ? 'Reply-to: ' + email + '\n\n' : '');
+    window.location.href = 'mailto:drewosipenko@gmail.com?subject=' + subject + '&body=' + body;
+  };
+  return (
+    <form
+      data-testid="contact-form"
+      onSubmit={(e) => { e.preventDefault(); transmit(); }}
+      style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}
+    >
+      <Input
+        placeholder="you@station.io"
+        type="email"
+        aria-label="Email address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <Button type="submit">Transmit</Button>
+    </form>
+  );
+}
+
 function StatStrip() {
   const [ref, visible] = useReveal();
-  const shipped = useCountUp(47, { visible });
-  const components = useCountUp(25, { visible, delay: 120 });
-  const tokens = useCountUp(58, { visible, delay: 240 });
+  const shipped = useCountUp(SPECIMEN_COUNT, { visible });
+  const components = useCountUp(54, { visible, delay: 120 });
+  const tokens = useCountUp(48, { visible, delay: 240 });
   return (
     <div ref={ref} className="container" style={{ padding: '64px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 32 }}>
       <Stat label="projects shipped" value={shipped} />
@@ -95,8 +123,8 @@ export function Landing() {
             Design work, shipped in one cold, precise voice — and the system it all runs on.
           </Reveal>
           <Reveal mounted delay={800} style={{ display: 'flex', gap: 12, marginTop: 32, alignItems: 'center', flexWrap: 'wrap' }}>
-            <Magnetic><Button size="lg" onClick={() => { window.location.hash = '/console'; }}>Enter</Button></Magnetic>
-            <Button variant="ghost" size="lg" onClick={() => { window.location.hash = '/portfolio'; }}>Read the record ↗</Button>
+            <Magnetic><Button size="lg" onClick={() => { window.location.hash = '/portfolio'; }}>Enter</Button></Magnetic>
+            <Button variant="ghost" size="lg" onClick={() => { window.location.hash = '/kits'; }}>Browse the kits ↗</Button>
           </Reveal>
         </div>
       </section>
@@ -137,9 +165,8 @@ export function Landing() {
             <h2 style={{ fontSize: 'var(--text-h1)', fontWeight: 300, letterSpacing: '-0.02em', margin: '16px auto 12px', maxWidth: '18ch' }}>Send a signal.</h2>
             <p style={{ color: 'var(--text-muted)', margin: '0 auto 32px', maxWidth: '40ch' }}>One field. A reply within two days.</p>
           </Reveal>
-          <Reveal delay={150} style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Input placeholder="you@station.io" type="email" aria-label="Email address" />
-            <Button>Transmit</Button>
+          <Reveal delay={150}>
+            <ContactForm />
           </Reveal>
         </div>
       </section>

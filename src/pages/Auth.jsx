@@ -68,7 +68,8 @@ export function Auth() {
               </form>
             </Card>
           </Reveal>
-          <Reveal mounted delay={280} style={{ textAlign: 'center', marginTop: 20 }}>
+          <Reveal mounted delay={280} style={{ textAlign: 'center', marginTop: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <MonoLabel muted style={{ fontSize: '0.6rem' }}>[ specimen — any signal authenticates ]</MonoLabel>
             <MonoLabel muted style={{ fontSize: '0.6rem' }}>64.7331° N · 18.1059° W · uplink secured</MonoLabel>
           </Reveal>
         </div>

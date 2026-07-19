@@ -80,6 +80,7 @@ export function Pricing() {
           <p style={{ color: 'var(--text-muted)', margin: '0 auto', maxWidth: '44ch' }}>
             Pay for depth, not noise. Every tier keeps the same voice.
           </p>
+          <MonoLabel muted style={{ display: 'block', marginTop: 20, fontSize: '0.6rem' }}>[ specimen — nothing is for sale ]</MonoLabel>
         </div>
       </section>
 
@@ -96,6 +97,9 @@ export function Pricing() {
 
       <section style={{ borderBottom: '1px solid var(--border)', background: 'var(--surface)' }}>
         <ProofStrip />
+        <div className="container" style={{ padding: '0 24px 24px', textAlign: 'center' }}>
+          <MonoLabel muted style={{ fontSize: '0.6rem' }}>[ sample data — a pricing surface, not a product ]</MonoLabel>
+        </div>
       </section>
 
       <Ticker items={['NO SEAT MATH', 'CANCEL BY TRANSMISSION', 'RECORDS ARE YOURS', 'DARK-FIRST, SILENT-ALWAYS']} />

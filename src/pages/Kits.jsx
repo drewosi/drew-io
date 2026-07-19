@@ -48,7 +48,7 @@ export function Kits() {
         </div>
       </section>
 
-      <Ticker items={['08 KITS', '31 COMPONENTS', '12 KINETIC MOVES', 'ONE HUE, FOUR DEPTHS', 'NOTHING BOUNCES']} />
+      <Ticker items={['08 KITS', '54 COMPONENTS', '20 KINETIC MOVES', 'ONE HUE, FOUR DEPTHS', 'NOTHING BOUNCES']} />
 
       <section>
         <div className="container" style={{ padding: '64px 24px 96px' }}>

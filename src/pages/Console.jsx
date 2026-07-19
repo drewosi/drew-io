@@ -8,6 +8,7 @@ import { Stat } from '../components/data/Stat.jsx';
 import { ChartFrame } from '../components/data/ChartFrame.jsx';
 import { Progress } from '../components/data/Progress.jsx';
 import { Table } from '../components/data/Table.jsx';
+import { toast } from '../components/feedback/Toast.jsx';
 import { Sidebar } from '../components/navigation/Sidebar.jsx';
 import { Breadcrumbs } from '../components/navigation/Breadcrumbs.jsx';
 import { Reveal } from '../components/motion/Reveal.jsx';
@@ -121,7 +122,7 @@ function RecordsPanel() {
           fontFamily: 'var(--font-mono)', fontSize: 'var(--text-label)', fontWeight: 500,
           letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text)',
         }}>Recent records</span>
-        <Button variant="secondary" size="sm">Export</Button>
+        <Button variant="secondary" size="sm" onClick={() => toast('Nothing exported. This is a kit.', { code: 'WARN' })}>Export</Button>
       </div>
       <Table columns={TABLE.columns} rows={TABLE.rows} visible={visible} />
     </div>
@@ -183,6 +184,7 @@ export function Console() {
             <Breadcrumbs items={[{ label: 'Station' }, { label: activeLabel }]} />
           </Reveal>
           <Reveal mounted delay={100} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <Badge>specimen · demo data</Badge>
             <Badge variant="success"><span className="signal-dot" aria-hidden="true">●</span> signal ok</Badge>
             <ThemeToggle />
           </Reveal>
@@ -215,7 +217,7 @@ export function Console() {
           fontFamily: 'var(--font-mono)', fontSize: 'var(--text-label)', letterSpacing: '0.16em',
           textTransform: 'uppercase', color: 'var(--text-muted)',
         }}>
-          <span>[ end of record ]</span>
+          <span>[ specimen 02 — demo data ]</span>
           <UtcClock />
           <span>64.7331° N · 18.1059° W</span>
         </footer>
