@@ -43,17 +43,60 @@ const CODE_COLOR = { OK: 'var(--success)', WARN: 'var(--warning)', ERR: 'var(--d
 function ToastRecord({ t, onDone }) {
   const [entered, setEntered] = React.useState(false);
   const [leaving, setLeaving] = React.useState(false);
+  const barRef = React.useRef(null);
+  const timers = React.useRef({ out: 0, gone: 0 });
+  const remaining = React.useRef(t.duration);
+  const started = React.useRef(0);
+
+  const arm = React.useCallback((ms) => {
+    started.current = Date.now();
+    timers.current.out = setTimeout(() => setLeaving(true), ms);
+    timers.current.gone = setTimeout(onDone, ms + 450);
+  }, [onDone]);
+  const disarm = () => { clearTimeout(timers.current.out); clearTimeout(timers.current.gone); };
+
   React.useEffect(() => {
     let id2;
     const id = requestAnimationFrame(() => { id2 = requestAnimationFrame(() => setEntered(true)); });
     const settleIn = setTimeout(() => setEntered(true), 300);
-    const out = setTimeout(() => setLeaving(true), t.duration);
-    const gone = setTimeout(onDone, t.duration + 450);
-    return () => { cancelAnimationFrame(id); if (id2) cancelAnimationFrame(id2); clearTimeout(settleIn); clearTimeout(out); clearTimeout(gone); };
-  }, [t, onDone]);
+    remaining.current = t.duration;
+    arm(t.duration);
+    return () => { cancelAnimationFrame(id); if (id2) cancelAnimationFrame(id2); clearTimeout(settleIn); disarm(); };
+  }, [t, arm]);
+
+  /* Countdown hairline runs imperatively so hover can freeze it mid-flight. */
+  React.useEffect(() => {
+    const bar = barRef.current;
+    if (!entered || !bar) return;
+    bar.style.transition = 'width ' + t.duration + 'ms linear';
+    bar.style.width = '0px';
+  }, [entered, t.duration]);
+
+  const pause = () => {
+    if (leaving) return;
+    disarm();
+    remaining.current -= Date.now() - started.current;
+    const bar = barRef.current;
+    if (bar) {
+      bar.style.width = getComputedStyle(bar).width;
+      bar.style.transition = 'none';
+    }
+  };
+  const resume = () => {
+    if (leaving) return;
+    const ms = Math.max(600, remaining.current);
+    arm(ms);
+    const bar = barRef.current;
+    if (bar) {
+      void bar.offsetWidth;
+      bar.style.transition = 'width ' + ms + 'ms linear';
+      bar.style.width = '0px';
+    }
+  };
+
   return (
-    <div style={{
-      position: 'relative', overflow: 'hidden',
+    <div onMouseEnter={pause} onMouseLeave={resume} style={{
+      position: 'relative', overflow: 'hidden', pointerEvents: 'auto',
       display: 'flex', alignItems: 'center', gap: 'var(--space-3)',
       background: 'var(--surface-raised)', color: 'var(--text)',
       border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)',
@@ -65,10 +108,9 @@ function ToastRecord({ t, onDone }) {
     }}>
       <span style={{ fontSize: 'var(--text-label)', fontWeight: 500, letterSpacing: '0.16em', color: CODE_COLOR[t.code] || 'var(--success)' }}>{t.code}</span>
       <span>{t.message}</span>
-      <span aria-hidden="true" style={{
+      <span ref={barRef} aria-hidden="true" style={{
         position: 'absolute', left: 0, bottom: 0, height: 1, background: 'var(--accent-3)',
-        width: entered ? 0 : '100%',
-        transition: entered ? 'width ' + t.duration + 'ms linear' : 'none',
+        width: '100%', transition: 'none',
       }}></span>
     </div>
   );
