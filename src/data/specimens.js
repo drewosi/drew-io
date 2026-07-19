@@ -79,6 +79,19 @@ export const SPECIMENS = [
     summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — proven on MERIDIAN, the launch instrument for a fictional AI. Fibonacci-lattice particle sphere, command palette, debug console; one file, no build. The front door is a museum, the basement is a laboratory.',
     link: { href: 'https://drewosi.github.io/lucid-engine/', label: 'Visit' },
   },
+  {
+    id: 'golden-hour',
+    title: 'EKK Golden Hour', kind: 'EXPRESSIVE DESIGN SYSTEM', date: '2026.07',
+    readout: 'DUSK 18:42 · LIGHT — WARM',
+    stack: 'DESIGN TOKENS / REACT · CLAUDE DESIGN',
+    stats: [
+      { label: 'components', value: 15 },
+      { label: 'motion moves', value: 6 },
+      { label: 'exclamation points', value: 0 },
+    ],
+    summary: 'The opposite pole of this station — a warm editorial system built for letters and keepsakes: golden-hour light on linen, marigold and rose, script sign-offs. Its motion language arrived this season: dust drifting in the light, lines that write themselves in ink, numbers that settle like dusk.',
+    link: { href: 'https://claude.ai/design/p/341e6d12-d63a-4940-b30a-675486335540?via=share', label: 'Visit' },
+  },
 ];
 
 /* Derived — never hand-edit counts anywhere else. */
