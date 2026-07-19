@@ -1,13 +1,32 @@
-# drew-io — DREW.OS 2.0 · build anything
+# drew-io — DREW.OS 2.0
 
-Implementation of the **Drew.io Design System** (claude.ai/design project "Drew.io Design System"): glacial monochrome, hairline precision, dark-first, silent-always. This repo is a complete starter framework — 54 components, 20 kinetic moves, and 9 finished surfaces you can copy to build a fully designed *anything* in the DREW.OS voice.
+**Drew's portfolio** — the main showcase for shipped design work, and the reference implementation of the **DREW.OS 2.0 design system** it's all built from: glacial monochrome, hairline precision, dark-first, silent-always. 54 components, 20 kinetic moves, 9 finished surfaces.
+
+**Live:** https://drewosi.github.io/drew-io/ · synced to the claude.ai/design project "DREW.OS 2.0 — drew-io"
 
 ## Run
 
 ```
 npm install
 npm run dev    # http://localhost:5180
-npm run build  # production bundle → dist/
+npm run build  # production bundle → dist/  (built with base /drew-io/; dev serves at /)
+```
+
+## The portfolio (the record)
+
+Every shipped project is one object in **`src/data/specimens.js`** — the single source of truth. Append an entry (documented template at the top of the file) and the specimen numbering, the `0X specimens` counts, and the hero headline all derive automatically. No page-code edits.
+
+`link` is optional: omit it until the project is deployed somewhere real. Never link to an undeployed workspace — the card renders cleanly with no button until there's a live URL.
+
+## Deploy
+
+The live site is the `gh-pages` branch, served by GitHub Pages:
+
+```
+npm run build
+git worktree add ../drew-io-ghpages gh-pages   # once
+cp -r dist/. ../drew-io-ghpages/               # remove stale hashed assets
+cd ../drew-io-ghpages && git add -A && git commit -m "Deploy: …" && git push
 ```
 
 ## The surfaces (hash routes — each is a copyable kit)
@@ -122,6 +141,7 @@ Buttons are single verbs ("Enter", "Erase"). Status speaks in codes (`OK / WARN 
 
 ## Structure
 
+- `src/data/specimens.js` — the portfolio record: one object per shipped project
 - `src/styles/tokens/` — the design system's token CSS, verbatim
 - `src/styles/app.css` — layout classes, keyframes, responsive + reduced-motion rules
 - `src/components/{actions,surfaces,forms,feedback,data,navigation,overlays,motion}/` — the library
