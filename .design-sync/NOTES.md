@@ -85,6 +85,18 @@ Igloo-inc-inspired cinematic-scroll system, hand-rolled, zero new dependencies:
 - The `#/portfolio` page (specimen archive) is the reference composition; its
   ChapterVeil / AberrationTitle / RingDraw are **page-local choreography, not DS
   primitives** — deliberately not exported or synced.
+- Two primitives ported from the lucid-engine design language: **ParticleField**
+  (canvas Fibonacci-lattice sphere with one accent meridian ring; rides the shared
+  ticker, pointer repulsion on a smoothed decay, theme-aware via `data-theme`
+  MutationObserver, static single frame under reduced motion) and **Wayfinder**
+  (fixed right-edge scroll-spy dots, wide pointer-fine viewports only). RULES 04
+  amended: the second sanctioned loop is now *one atmosphere layer* — the grain or
+  the particle field, never both. Preview cards for both are TODO at next resync.
+- The command palette is now live: `App.jsx` owns the global ctrl/cmd-K listener
+  and mounts `CommandPalette` with navigate + theme actions; filtering upgraded to
+  subsequence fuzzy match. Toasts pause their countdown on hover (remaining-time
+  bookkeeping); Accordion gained an opt-in `orbit` prop (closed siblings dim to
+  0.55 while one row holds focus).
 
 ## Re-sync risks (what can silently go stale)
 

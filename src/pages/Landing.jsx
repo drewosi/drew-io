@@ -12,6 +12,8 @@ import { Reveal } from '../components/motion/Reveal.jsx';
 import { SectionNumeral } from '../components/motion/SectionNumeral.jsx';
 import { Magnetic } from '../components/motion/Magnetic.jsx';
 import { Parallax } from '../components/motion/Parallax.jsx';
+import { ParticleField } from '../components/motion/ParticleField.jsx';
+import { Wayfinder } from '../components/motion/Wayfinder.jsx';
 import { useReveal } from '../hooks/useReveal.js';
 import { useCountUp } from '../hooks/useCountUp.js';
 import { useScrollProgress } from '../hooks/useScrollProgress.js';
@@ -90,6 +92,12 @@ export function Landing() {
   return (
     <div style={{ minHeight: '100vh' }}>
       <ScrollProgress />
+      <Wayfinder sections={[
+        { id: 'top', label: '01 / transmission' },
+        { id: 'work', label: '02 / capabilities' },
+        { id: 'system', label: '02.9 / readings' },
+        { id: 'contact', label: '03 / contact' },
+      ]} />
 
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
@@ -110,8 +118,9 @@ export function Landing() {
         <div style={{ position: 'relative' }}><span className="hairline-draw"></span></div>
       </header>
 
-      <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="container hero-pad">
+      <section id="top" style={{ borderBottom: '1px solid var(--border)', position: 'relative', overflow: 'hidden' }}>
+        <ParticleField points={1000} speed={0.05} centerX={0.66} dim={0.55} style={{ zIndex: 0 }} />
+        <div className="container hero-pad" style={{ position: 'relative', zIndex: 1 }}>
           <Reveal mounted delay={200} style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 48 }}>
             <MonoLabel>01 / transmission</MonoLabel>
             <MonoLabel muted>est. 2026 · drew.io</MonoLabel>

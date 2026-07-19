@@ -70,6 +70,8 @@ export { Magnetic } from './components/motion/Magnetic.jsx';
 export { Tilt } from './components/motion/Tilt.jsx';
 export { HUDCallout } from './components/motion/HUDCallout.jsx';
 export { FilmGrain } from './components/motion/FilmGrain.jsx';
+export { ParticleField } from './components/motion/ParticleField.jsx';
+export { Wayfinder } from './components/motion/Wayfinder.jsx';
 
 // hooks
 export { useReveal, useReducedMotion } from './hooks/useReveal.js';

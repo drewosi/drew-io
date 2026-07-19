@@ -19,9 +19,14 @@ export function CommandPalette({ items = [], open = false, onClose, placeholder 
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return items;
+    // Subsequence fuzzy match: every query char appears, in order.
+    const fuzzy = (needle, hay) => {
+      let i = 0, j = 0;
+      while (i < needle.length && j < hay.length) { if (needle[i] === hay[j]) i++; j++; }
+      return i === needle.length;
+    };
     return items.filter((it) =>
-      String(it.label).toLowerCase().includes(q) ||
-      (it.group && String(it.group).toLowerCase().includes(q)));
+      fuzzy(q, ((it.group ? String(it.group) + ' ' : '') + String(it.label)).toLowerCase()));
   }, [query, items]);
 
   React.useEffect(() => { setActive(0); }, [query]);

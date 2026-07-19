@@ -5,9 +5,9 @@ import React from 'react';
  * the affordance is a single mono glyph, + closed / – open. Panels open on the
  * long --snap deceleration (grid-rows 0fr → 1fr); nothing bounces. Single-open
  * by default — opening one closes the last. Hover brightens the header, never
- * moves it.
+ * moves it. `orbit` dims closed siblings to 0.55 while one row holds focus.
  */
-export function Accordion({ items = [], defaultOpen = null, allowMultiple = false, style }) {
+export function Accordion({ items = [], defaultOpen = null, allowMultiple = false, orbit = false, style }) {
   const [open, setOpen] = React.useState(() => (defaultOpen == null ? {} : { [defaultOpen]: true }));
 
   const toggle = (i) => setOpen((prev) => {
@@ -15,13 +15,19 @@ export function Accordion({ items = [], defaultOpen = null, allowMultiple = fals
     return prev[i] ? {} : { [i]: true };
   });
 
+  const anyOpen = Object.values(open).some(Boolean);
+
   return (
     <div style={{ borderTop: '1px solid var(--border)', ...style }}>
       {items.map((it, i) => {
         const isOpen = !!open[i];
         const idx = String(i + 1).padStart(2, '0');
         return (
-          <div key={i} style={{ borderBottom: '1px solid var(--border)' }}>
+          <div key={i} style={{
+            borderBottom: '1px solid var(--border)',
+            opacity: orbit && anyOpen && !isOpen ? 0.55 : 1,
+            transition: 'opacity var(--ease)',
+          }}>
             <button
               type="button"
               onClick={() => toggle(i)}

@@ -10,7 +10,8 @@ import { ComponentsPage } from './pages/ComponentsPage.jsx';
 import { MotionLab } from './pages/MotionLab.jsx';
 import { Portfolio } from './pages/Portfolio.jsx';
 import { PageTransition } from './components/motion/PageTransition.jsx';
-import { ToastHost } from './components/feedback/Toast.jsx';
+import { ToastHost, toast } from './components/feedback/Toast.jsx';
+import { CommandPalette } from './components/overlays/CommandPalette.jsx';
 
 /* Hash routing: "#/route" selects a page; anything else (including in-page
    anchors like "#work") stays on Landing. */
@@ -31,8 +32,58 @@ function routeFromHash() {
   return ROUTES[h] ? h : '/';
 }
 
+/* Palette destinations — the landing plus every registered route. */
+const ROUTE_LABELS = {
+  '/': 'Landing',
+  '/portfolio': 'Portfolio',
+  '/motion': 'Motion Lab',
+  '/components': 'Components',
+  '/docs': 'Docs',
+  '/kits': 'Kits',
+  '/pricing': 'Pricing',
+  '/console': 'Console',
+  '/settings': 'Settings',
+  '/auth': 'Auth',
+};
+
 export default function App() {
   const [route, setRoute] = React.useState(routeFromHash);
+  const [palOpen, setPalOpen] = React.useState(false);
+
+  /* The one global hotkey: ctrl/cmd-K toggles the palette. */
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setPalOpen(o => !o);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const palItems = React.useMemo(() => [
+    ...Object.keys(ROUTE_LABELS).map((r) => ({
+      group: 'navigate',
+      label: 'Go to ' + ROUTE_LABELS[r],
+      onSelect: () => {
+        setPalOpen(false);
+        window.location.hash = r === '/' ? '' : r;
+        toast('Route set — ' + ROUTE_LABELS[r].toLowerCase() + '.');
+      },
+    })),
+    {
+      group: 'system',
+      label: 'Toggle theme — dark / frost',
+      onSelect: () => {
+        setPalOpen(false);
+        const el = document.documentElement;
+        const next = el.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        el.setAttribute('data-theme', next);
+        toast('Theme set — ' + (next === 'dark' ? 'dark' : 'frost') + '.');
+      },
+    },
+  ], []);
 
   React.useEffect(() => {
     const onHash = () => {
@@ -54,6 +105,7 @@ export default function App() {
         <Page />
       </PageTransition>
       <ToastHost />
+      <CommandPalette open={palOpen} onClose={() => setPalOpen(false)} items={palItems} />
     </>
   );
 }

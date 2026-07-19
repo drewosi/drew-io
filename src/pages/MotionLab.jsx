@@ -3,7 +3,7 @@ import {
   MonoLabel, SectionHead, Button, Card, Slider,
   DecodeText, TypeText, Ticker, Reveal, StaggerChildren, HairlineDraw,
   ScanSweep, BlinkDot, CursorCoords, NumberTicker, Progress,
-  ScrollScene, FocusReveal, MaskReveal, Magnetic, Tilt, HUDCallout, FilmGrain,
+  ScrollScene, FocusReveal, MaskReveal, Magnetic, Tilt, HUDCallout, FilmGrain, ParticleField,
   useReveal, useCountUp, useClock, useSpring, useSceneProgress,
 } from '../lib.js';
 import { KitFrame } from './KitFrame.jsx';
@@ -133,11 +133,32 @@ function GrainDemo() {
   );
 }
 
+/* The lattice under bench power — sliders feed the live field, no remounts. */
+function FieldDemo() {
+  const [pts, setPts] = React.useState(1200);
+  const [speed, setSpeed] = React.useState(6);
+  const [force, setForce] = React.useState(35);
+  const [paused, setPaused] = React.useState(false);
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <div style={{ position: 'relative', height: 260, border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', overflow: 'hidden', background: 'var(--bg)' }}>
+        <ParticleField points={pts} speed={speed / 100} force={force} paused={paused} />
+      </div>
+      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <Slider label="points" value={pts} min={400} max={2400} step={200} onChange={setPts} width={180} />
+        <Slider label="rotation" value={speed} min={0} max={20} onChange={setSpeed} width={180} />
+        <Slider label="pointer force" value={force} min={0} max={100} onChange={setForce} width={180} />
+        <Button size="sm" variant="secondary" onClick={() => setPaused(p => !p)}>{paused ? 'Resume' : 'Pause'}</Button>
+      </div>
+    </div>
+  );
+}
+
 const RULES = [
   ['01', 'Two curves only. --snap (400ms, long deceleration) moves things; --ease (250ms) colors them.'],
   ['02', 'Nothing bounces, nothing lifts. Hover changes color, never position — except the field response: ≤4px magnetic pull, ≤2° tilt, press to 0.985, all on critically damped springs. Decelerate; never overshoot.'],
   ['03', 'The decode reveal runs once per screen, on the line that matters.'],
-  ['04', 'Two sanctioned infinite loops: the ticker and the grain. One of each per page.'],
+  ['04', 'Two sanctioned infinite loops per page: the ticker, and one atmosphere layer — the grain or the particle field, never both.'],
   ['05', 'Every move respects prefers-reduced-motion and settles on a timer if frames stall.'],
   ['06', 'Scroll is never hijacked. The page scrolls natively; the animated layers decelerate behind it.'],
 ];
@@ -272,6 +293,10 @@ export function MotionLab() {
 
           <Bench label="FilmGrain — the atmosphere" note="stepped at 9fps · sanctioned loop no. 2">
             <GrainDemo />
+          </Bench>
+
+          <Bench label="ParticleField — the lattice" note="fibonacci sphere, one meridian at longitude zero · atmosphere loop" wide>
+            <FieldDemo />
           </Bench>
         </div>
 
