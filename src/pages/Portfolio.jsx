@@ -25,52 +25,9 @@ import { useScrollProgress } from '../hooks/useScrollProgress.js';
 import { useScrollField } from '../motion/scrollField.js';
 import { useSceneProgress } from '../motion/sceneContext.js';
 import { ABERRATION } from '../motion/constants.js';
+import { SPECIMENS, SPECIMEN_COUNT_PAD, SPECIMEN_COUNT_WORD } from '../data/specimens.js';
 
 const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
-
-/* ── The record ──────────────────────────────────────────────────────── */
-
-const SPECIMENS = [
-  {
-    index: '01', id: 'drewos',
-    title: 'DREW.OS 2.0', kind: 'DESIGN SYSTEM', date: '2026.07',
-    readout: 'TEMP −41.3° · SIGNAL OK',
-    stack: 'REACT 18 / VITE / 0 DEPS',
-    stats: [
-      { label: 'components', value: 54 },
-      { label: 'kinetic moves', value: 20 },
-      { label: 'dependencies', value: 0 },
-    ],
-    summary: 'One cold, precise system every artifact on this page is built from. Dark-first, hairline-drawn, silent-always.',
-    link: { href: '#/components', label: 'Explore' },
-  },
-  {
-    index: '02', id: 'mickman',
-    title: 'Mickman Fundraising', kind: 'FUNDRAISING PLATFORM', date: '2026.07',
-    readout: '45.2408° N · 93.2378° W',
-    stack: 'STATIC HTML / CSS / VANILLA JS · NO BUILD',
-    stats: [
-      { label: 'trees planted', value: 1000000 },
-      { label: 'leader templates', value: 20 },
-      { label: 'build steps', value: 0 },
-    ],
-    summary: 'The complete platform for a Minnesota nursery’s holiday wreath fundraisers — marketing site, invite-only leader portal, and a tally tracker that replicates the official workbook to the cent. One system in balsam green and antique gold, shipped as pure static files.',
-    link: { href: 'https://drewosi.github.io/mickman-fundraising/', label: 'Visit' },
-  },
-  {
-    index: '03', id: 'motion-lab',
-    title: 'Motion Lab', kind: 'KINETIC INSTRUMENT', date: '2026.07',
-    readout: 'LOOPS — 2 SANCTIONED',
-    stack: 'SINGLE RAF · CRITICALLY DAMPED',
-    stats: [
-      { label: 'kinetic moves', value: 20 },
-      { label: 'printed rules', value: 6 },
-      { label: 'overshoots', value: 0 },
-    ],
-    summary: 'Every sanctioned move in the system, replayable on a bench. Deceleration only — the proof that nothing here ever bounces.',
-    link: { href: '#/motion', label: 'Enter' },
-  },
-];
 
 /* ── Page-local instruments (choreography, not primitives — not synced) ── */
 
@@ -220,22 +177,23 @@ function SpecimenStat({ label, value, unit }) {
    their annotations, fog on both ends. */
 function SpecimenScene({ s, i }) {
   const side = i % 2 === 0 ? 'right' : 'left';
+  const index = String(i + 1).padStart(2, '0');
   return (
     <ScrollScene length={1.2}>
-      <section aria-label={'Specimen ' + s.index + ' — ' + s.title} style={{
+      <section aria-label={'Specimen ' + index + ' — ' + s.title} style={{
         position: 'relative', height: '100%', minHeight: '100vh',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         overflow: 'hidden', padding: '96px 24px',
       }}>
         <Parallax depth={0.12} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} aria-hidden="true">
-          <SectionNumeral side={side}>{s.index}</SectionNumeral>
+          <SectionNumeral side={side}>{index}</SectionNumeral>
         </Parallax>
         <Parallax depth={0.3} as="span" aria-hidden="true" style={{
           position: 'absolute', [side === 'right' ? 'left' : 'right']: 24, top: '18%',
           fontFamily: 'var(--font-mono)', fontSize: 'var(--text-label)', letterSpacing: '0.18em',
           color: 'var(--accent-3)', pointerEvents: 'none', whiteSpace: 'nowrap',
         }}>
-          {'////// SPECIMEN_' + s.index + ' · ' + s.readout}
+          {'////// SPECIMEN_' + index + ' · ' + s.readout}
         </Parallax>
 
         <MaskReveal direction="up" style={{ marginBottom: 116, textAlign: 'center' }}>
@@ -245,7 +203,7 @@ function SpecimenScene({ s, i }) {
         </MaskReveal>
 
         <div style={{ position: 'relative', width: '100%', maxWidth: 620 }}>
-          <HUDCallout corner={side === 'right' ? 'tl' : 'tr'} index={s.index} stem={34} delay={200}
+          <HUDCallout corner={side === 'right' ? 'tl' : 'tr'} index={index} stem={34} delay={200}
             lines={['DATE — ' + s.date, 'STACK — ' + s.stack]} />
           <HUDCallout corner={side === 'right' ? 'br' : 'bl'} stem={34} delay={420}
             lines={[s.readout, 'STATUS — LIVE']} />
@@ -297,12 +255,12 @@ function HeroHUD() {
       {corner({ top: 28, left: 24 }, 200, <MonoLabel>{'////// specimen archive'}</MonoLabel>)}
       {corner({ top: 28, right: 24 }, 300, <MonoLabel muted>{t.h + ' : ' + t.m + ' : ' + t.s + ' UTC'}</MonoLabel>)}
       {corner({ bottom: 28, left: 24 }, 400, <><BlinkDot /><MonoLabel muted>scroll to descend</MonoLabel></>)}
-      {corner({ bottom: 28, right: 24 }, 500, <MonoLabel muted>03 specimens · est. 2026</MonoLabel>)}
+      {corner({ bottom: 28, right: 24 }, 500, <MonoLabel muted>{SPECIMEN_COUNT_PAD + ' specimens · est. 2026'}</MonoLabel>)}
 
       <div style={{ textAlign: 'center', padding: '0 24px', position: 'relative' }}>
         <Reveal mounted delay={150}><MonoLabel>09 / portfolio</MonoLabel></Reveal>
         <h1 style={{ fontSize: 'var(--text-display)', fontWeight: 300, letterSpacing: '-0.03em', lineHeight: 1.02, margin: '18px 0 0', maxWidth: '16ch' }}>
-          <DecodeText text="Three artifacts. One voice." duration={1300} delay={450} />
+          <DecodeText text={SPECIMEN_COUNT_WORD + ' artifacts. One voice.'} duration={1300} delay={450} />
         </h1>
         <Reveal mounted delay={700} as="p" style={{ fontSize: 'var(--text-h3)', fontWeight: 400, color: 'var(--text-muted)', margin: '20px auto 0', maxWidth: '44ch' }}>
           A record of shipped work, preserved in the ice it was built from.
@@ -389,7 +347,7 @@ export function Portfolio() {
             <Magnetic><Button onClick={() => { window.location.href = 'mailto:drewosipenko@gmail.com'; }}>Signal</Button></Magnetic>
             <Button variant="ghost" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Return</Button>
           </div>
-          <MonoLabel muted>[ end of record ] · 03 specimens · dark-first, silent-always</MonoLabel>
+          <MonoLabel muted>{'[ end of record ] · ' + SPECIMEN_COUNT_PAD + ' specimens · dark-first, silent-always'}</MonoLabel>
         </div>
       </footer>
     </div>

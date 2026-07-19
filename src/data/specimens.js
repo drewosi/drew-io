@@ -1,0 +1,70 @@
+/**
+ * The record — every shipped project on the portfolio, one object each.
+ * This file is the single source of truth: display order, specimen
+ * numbering, the "0X specimens" counts, and the hero headline all
+ * derive from this array automatically.
+ *
+ * To add a project, append an object with this shape:
+ *
+ *   {
+ *     id:      'unique-slug',
+ *     title:   'Project Name',
+ *     kind:    'WHAT IT IS',                // uppercase card label, e.g. 'FUNDRAISING PLATFORM'
+ *     date:    'YYYY.MM',
+ *     readout: 'MONO HUD LINE',             // flavor: coordinates, a status, a stat
+ *     stack:   'TECH / USED · NOTES',
+ *     stats: [                              // exactly three reads best
+ *       { label: 'metric', value: 123 },
+ *       { label: 'with unit', value: 100, unit: '%' },
+ *     ],
+ *     summary: 'One or two sentences in the DREW.OS voice. Cold, precise, no hype.',
+ *     link:    { href: 'https://…', label: 'Visit' },   // use '#/route' for internal pages
+ *   }
+ */
+export const SPECIMENS = [
+  {
+    id: 'drewos',
+    title: 'DREW.OS 2.0', kind: 'DESIGN SYSTEM', date: '2026.07',
+    readout: 'TEMP −41.3° · SIGNAL OK',
+    stack: 'REACT 18 / VITE / 0 DEPS',
+    stats: [
+      { label: 'components', value: 54 },
+      { label: 'kinetic moves', value: 20 },
+      { label: 'dependencies', value: 0 },
+    ],
+    summary: 'One cold, precise system every artifact on this page is built from. Dark-first, hairline-drawn, silent-always.',
+    link: { href: '#/components', label: 'Explore' },
+  },
+  {
+    id: 'mickman',
+    title: 'Mickman Fundraising', kind: 'FUNDRAISING PLATFORM', date: '2026.07',
+    readout: '45.2408° N · 93.2378° W',
+    stack: 'STATIC HTML / CSS / VANILLA JS · NO BUILD',
+    stats: [
+      { label: 'trees planted', value: 1000000 },
+      { label: 'leader templates', value: 20 },
+      { label: 'build steps', value: 0 },
+    ],
+    summary: 'The complete platform for a Minnesota nursery’s holiday wreath fundraisers — marketing site, invite-only leader portal, and a tally tracker that replicates the official workbook to the cent. One system in balsam green and antique gold, shipped as pure static files.',
+    link: { href: 'https://drewosi.github.io/mickman-fundraising/', label: 'Visit' },
+  },
+  {
+    id: 'motion-lab',
+    title: 'Motion Lab', kind: 'KINETIC INSTRUMENT', date: '2026.07',
+    readout: 'LOOPS — 2 SANCTIONED',
+    stack: 'SINGLE RAF · CRITICALLY DAMPED',
+    stats: [
+      { label: 'kinetic moves', value: 20 },
+      { label: 'printed rules', value: 6 },
+      { label: 'overshoots', value: 0 },
+    ],
+    summary: 'Every sanctioned move in the system, replayable on a bench. Deceleration only — the proof that nothing here ever bounces.',
+    link: { href: '#/motion', label: 'Enter' },
+  },
+];
+
+/* Derived — never hand-edit counts anywhere else. */
+const NUM_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+export const SPECIMEN_COUNT = SPECIMENS.length;
+export const SPECIMEN_COUNT_PAD = String(SPECIMEN_COUNT).padStart(2, '0');
+export const SPECIMEN_COUNT_WORD = NUM_WORDS[SPECIMEN_COUNT] || String(SPECIMEN_COUNT);
