@@ -73,10 +73,10 @@ export const SPECIMENS = [
     stack: 'SINGLE-FILE HTML / CANVAS · 0 DEPS · BYO KEY',
     stats: [
       { label: 'html files', value: 5 },
-      { label: 'model providers', value: 3 },
+      { label: 'model providers', value: 4 },
       { label: 'backend servers', value: 0 },
     ],
-    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — now proven on a real product. MERIDIAN grew from launch film into a browser-only AI workbench in free beta: bring your own key, load a folder, and every answer streams back with a trace pinned to the exact lines it stands on. No backend, no third-party scripts. The front door is a museum, the basement is a laboratory.',
+    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — now proven on a real product. MERIDIAN indexes a project’s symbols and import graph before any model sees it, grounds every AI answer in that index with a path:line trace, and — bring no key at all — answers the same way through a LOCAL engine with zero network. No backend, no third-party scripts. The front door is a museum, the basement is a laboratory.',
     link: { href: 'https://drewosi.github.io/lucid-engine/', label: 'Visit' },
   },
   {
