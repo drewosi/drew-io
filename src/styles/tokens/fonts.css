@@ -1,2 +1,7 @@
-/* DREW.OS — Webfonts. Geist (interface) + Geist Mono (technical) from Google Fonts. */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+/* DREW.OS — Webfonts. Geist (interface) + Geist Mono (technical), self-hosted via @fontsource. */
+@import '@fontsource/geist-sans/300.css';
+@import '@fontsource/geist-sans/400.css';
+@import '@fontsource/geist-sans/500.css';
+@import '@fontsource/geist-sans/600.css';
+@import '@fontsource/geist-mono/400.css';
+@import '@fontsource/geist-mono/500.css';
