@@ -15,6 +15,7 @@ export function CommandPalette({ items = [], open = false, onClose, placeholder 
   const [query, setQuery] = React.useState('');
   const [active, setActive] = React.useState(0);
   const inputRef = React.useRef(null);
+  const returnFocus = React.useRef(null);
 
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -33,6 +34,8 @@ export function CommandPalette({ items = [], open = false, onClose, placeholder 
 
   React.useEffect(() => {
     if (!open) { setEntered(false); return; }
+    // Focus return: the palette steals focus into its input, so remember the opener.
+    returnFocus.current = document.activeElement;
     const onKey = (e) => { if (e.key === 'Escape' && onClose) onClose(); };
     window.addEventListener('keydown', onKey);
     let id2;
@@ -43,6 +46,8 @@ export function CommandPalette({ items = [], open = false, onClose, placeholder 
       window.removeEventListener('keydown', onKey);
       cancelAnimationFrame(id); if (id2) cancelAnimationFrame(id2);
       clearTimeout(settle); clearTimeout(focus);
+      const el = returnFocus.current;
+      if (el && el.focus && document.contains(el)) el.focus();
     };
   }, [open, onClose]);
 

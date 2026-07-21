@@ -37,6 +37,30 @@ function ScrollRail() {
   return <div ref={ref} className="scroll-progress" aria-hidden="true"></div>;
 }
 
+/* Number keys 1–N descend straight to a specimen chapter. The jump lands at
+   mid-scene progress so the card is fully out of the fog; reduced motion gets
+   an instant jump to the unpinned section. */
+function useSpecimenJumps(reduced) {
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.target && e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      if (document.querySelector('[role="dialog"]')) return; // palette or keymap has the keys
+      const n = Number(e.key);
+      if (!Number.isInteger(n) || n < 1 || n > SPECIMENS.length) return;
+      const el = document.getElementById('specimen-' + SPECIMENS[n - 1].id);
+      if (!el) return;
+      e.preventDefault();
+      const y = reduced
+        ? el.offsetTop
+        : el.offsetTop + Math.max(0, (el.offsetHeight - window.innerHeight) * 0.5);
+      window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [reduced]);
+}
+
 function NavLink({ href, children }) {
   return <a href={href} className="nav-link">{children}</a>;
 }
@@ -168,7 +192,7 @@ function SpecimenScene({ s, i }) {
   const side = i % 2 === 0 ? 'right' : 'left';
   const index = String(i + 1).padStart(2, '0');
   return (
-    <ScrollScene length={1.2}>
+    <ScrollScene length={1.2} id={'specimen-' + s.id}>
       <section aria-label={'Specimen ' + index + ' — ' + s.title} style={{
         position: 'relative', height: '100%', minHeight: '100vh',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -245,7 +269,7 @@ function HeroHUD() {
 
       {corner({ top: 28, left: 24 }, 200, <MonoLabel>{'////// specimen archive'}</MonoLabel>)}
       {corner({ top: 28, right: 24 }, 300, <MonoLabel muted>{t.h + ' : ' + t.m + ' : ' + t.s + ' UTC'}</MonoLabel>)}
-      {corner({ bottom: 28, left: 24 }, 400, <><BlinkDot /><MonoLabel muted>scroll to descend</MonoLabel></>)}
+      {corner({ bottom: 28, left: 24 }, 400, <><BlinkDot /><MonoLabel muted>scroll to descend · ? controls</MonoLabel></>)}
       {corner({ bottom: 28, right: 24 }, 500, <MonoLabel muted>{SPECIMEN_COUNT_PAD + ' specimens · est. 2026'}</MonoLabel>)}
 
       <div style={{ textAlign: 'center', padding: '0 24px', position: 'relative' }}>
@@ -266,6 +290,8 @@ function HeroHUD() {
 }
 
 export function Portfolio() {
+  const reduced = useReducedMotion();
+  useSpecimenJumps(reduced);
   return (
     <div style={{ minHeight: '100vh' }}>
       <ScrollRail />

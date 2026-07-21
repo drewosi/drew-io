@@ -8,9 +8,12 @@ import { useReducedMotion } from '../../hooks/useReveal.js';
 export function Modal({ open = false, onClose, title, kicker, footer, width = 480, children, style }) {
   const reduced = useReducedMotion();
   const [entered, setEntered] = React.useState(false);
+  const returnFocus = React.useRef(null);
 
   React.useEffect(() => {
     if (!open) { setEntered(false); return; }
+    // Focus return: whatever opened the modal gets focus back when it closes.
+    returnFocus.current = document.activeElement;
     const onKey = (e) => { if (e.key === 'Escape' && onClose) onClose(); };
     window.addEventListener('keydown', onKey);
     let id2;
@@ -19,6 +22,8 @@ export function Modal({ open = false, onClose, title, kicker, footer, width = 48
     return () => {
       window.removeEventListener('keydown', onKey);
       cancelAnimationFrame(id); if (id2) cancelAnimationFrame(id2); clearTimeout(settle);
+      const el = returnFocus.current;
+      if (el && el.focus && document.contains(el)) el.focus();
     };
   }, [open, onClose]);
   if (!open) return null;

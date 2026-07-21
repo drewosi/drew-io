@@ -48,6 +48,7 @@ export { Modal } from './components/overlays/Modal.jsx';
 export { Dropdown } from './components/overlays/Dropdown.jsx';
 export { Tooltip } from './components/overlays/Tooltip.jsx';
 export { CommandPalette } from './components/overlays/CommandPalette.jsx';
+export { Keymap } from './components/overlays/Keymap.jsx';
 
 // motion
 export { DecodeText } from './components/motion/DecodeText.jsx';
