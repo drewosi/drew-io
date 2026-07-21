@@ -12,6 +12,7 @@ import { Portfolio } from './pages/Portfolio.jsx';
 import { PageTransition } from './components/motion/PageTransition.jsx';
 import { ToastHost, toast } from './components/feedback/Toast.jsx';
 import { CommandPalette } from './components/overlays/CommandPalette.jsx';
+import { toggleTheme } from './theme.js';
 
 /* Hash routing: "#/route" selects a page; anything else (including in-page
    anchors like "#work") stays on Landing. */
@@ -77,9 +78,7 @@ export default function App() {
       label: 'Toggle theme — dark / frost',
       onSelect: () => {
         setPalOpen(false);
-        const el = document.documentElement;
-        const next = el.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-        el.setAttribute('data-theme', next);
+        const next = toggleTheme();
         toast('Theme set — ' + (next === 'dark' ? 'dark' : 'frost') + '.');
       },
     },

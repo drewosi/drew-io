@@ -1,19 +1,23 @@
 import React from 'react';
+import { getTheme, toggleTheme } from '../../theme.js';
 
 /**
  * DREW.OS ThemeToggle — mono switch between dark and frost (light) themes.
- * Sets data-theme on <html> and reports via onChange.
+ * Delegates to theme.js (persistence + broadcast) and reports via onChange.
  */
 export function ThemeToggle({ theme: themeProp, onChange, style }) {
-  const [internal, setInternal] = React.useState(
-    () => document.documentElement.getAttribute('data-theme') || 'dark'
-  );
+  const [internal, setInternal] = React.useState(getTheme);
   const theme = themeProp ?? internal;
 
+  // Stay in sync when the theme changes elsewhere (command palette, T hotkey).
+  React.useEffect(() => {
+    const onTheme = (e) => setInternal(e.detail);
+    window.addEventListener('drewos:theme', onTheme);
+    return () => window.removeEventListener('drewos:theme', onTheme);
+  }, []);
+
   const toggle = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    setInternal(next);
+    const next = toggleTheme();
     if (onChange) onChange(next);
   };
 

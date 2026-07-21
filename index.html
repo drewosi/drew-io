@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305080A'/%3E%3Cpath d='M4 4h6M4 4v6M28 4h-6M28 4v6M4 28h6M4 28v-6M28 28h-6M28 28v-6' stroke='%23C7E2F2' stroke-width='2' fill='none'/%3E%3C/svg%3E" />
     <title>DREW.OS / 2.0 — A signal from beneath the ice</title>
+    <!-- Pre-paint theme: saved choice, else OS preference. data-theme="dark" above is the no-JS fallback. -->
+    <script>
+      try {
+        var t = localStorage.getItem('drewos-theme');
+        if (t !== 'light' && t !== 'dark')
+          t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
     <style>html { background: #05080A; } html[data-theme="light"] { background: #E9EEF1; }</style>
   </head>
   <body>
