@@ -178,6 +178,65 @@ function DisassemblyGrid() {
   );
 }
 
+/* A real capture of the specimen at work, framed like an instrument readout.
+   Nothing loads until the card scrolls near; the loop parks while off-screen.
+   Reduced motion: same recording, but it waits for a deliberate press-play. */
+function SpecimenMedia({ media }) {
+  const reduced = useReducedMotion();
+  const [ref, visible] = useReveal();
+  const videoRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (reduced || !visible) return;
+    const v = videoRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.intersectionRatio >= 0.5) v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: [0, 0.5] }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, [reduced, visible]);
+
+  return (
+    <div ref={ref} style={{ margin: '0 0 26px' }}>
+      <div style={{
+        aspectRatio: media.aspect || '16 / 9',
+        // The card lives in a pinned 100vh chapter — never let the recording
+        // push the stats and button below the fold. Cover-crop instead.
+        maxHeight: '32vh', overflow: 'hidden',
+        background: 'var(--bg)', border: '1px solid var(--border)',
+        borderRadius: 'var(--radius-sm)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        {visible ? (
+          <video
+            ref={videoRef}
+            src={media.src}
+            muted={!reduced}
+            loop={!reduced}
+            autoPlay={!reduced}
+            controls={reduced}
+            playsInline
+            preload="metadata"
+            aria-label={media.caption}
+            style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
+          />
+        ) : (
+          <MonoLabel muted>{'▸ RECORDING'}</MonoLabel>
+        )}
+      </div>
+      <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 10 }}>
+        <BlinkDot />
+        <MonoLabel muted>{media.caption}</MonoLabel>
+      </div>
+    </div>
+  );
+}
+
 /* One animated stat — count-up on view. */
 function SpecimenStat({ label, value, unit, decimals }) {
   const [ref, visible] = useReveal();
@@ -230,6 +289,7 @@ function SpecimenScene({ s, i }) {
                 <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-body)', lineHeight: 1.6, margin: '18px 0 26px', maxWidth: '52ch' }}>
                   {s.summary}
                 </p>
+                {s.media && <SpecimenMedia media={s.media} />}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 20, marginBottom: 30 }}>
                   {s.stats.map((st) => <SpecimenStat key={st.label} {...st} />)}
                 </div>

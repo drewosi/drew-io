@@ -25,7 +25,14 @@
  * `link` is OPTIONAL — omit it until the project is deployed somewhere
  * real. Never link to an undeployed workspace (e.g. a Replit editor page);
  * the card renders cleanly with no button until there's a live URL.
+ *
+ * Other OPTIONAL fields:
+ *   status: 'ARCHIVED'                    // uppercase; HUD reads STATUS — LIVE when omitted
+ *   media:  { type: 'video', src, aspect: '1280 / 800', caption: 'MONO CAPTION' }
+ *           // src via `import … from '../assets/…'`; a real capture, never a mockup
  */
+import meridianDemo from '../assets/meridian-demo.mp4';
+
 export const SPECIMENS = [
   {
     id: 'drewos',
@@ -70,13 +77,14 @@ export const SPECIMENS = [
     id: 'lucid-engine',
     title: 'Lucid Engine', kind: 'DESIGN LANGUAGE', date: '2026.07',
     readout: 'MERIDIAN · 0.0000° — PRIME',
-    stack: 'SINGLE-FILE HTML / CANVAS · 0 DEPS · BYO KEY',
+    stack: 'SINGLE-FILE HTML / CANVAS · 0 DEPS · NO KEY REQUIRED',
     stats: [
-      { label: 'html files', value: 5 },
-      { label: 'model providers', value: 4 },
+      { label: 'languages indexed', value: 5 },
+      { label: 'self-tests', value: 25 },
       { label: 'backend servers', value: 0 },
     ],
-    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — now proven on a real product. MERIDIAN indexes a project’s symbols and import graph before any model sees it, grounds every AI answer in that index with a path:line trace, and — bring no key at all — answers the same way through a LOCAL engine with zero network. No backend, no third-party scripts. The front door is a museum, the basement is a laboratory.',
+    summary: 'A design language of hospitable clarity, visible engineering, and cinematic depth — proven on a real product. MERIDIAN indexes symbols and imports across five languages before any model sees them, grounds every answer in that index with a path:line trace, and prices the session in dollars as it runs. Bring no key and a LOCAL engine answers with zero network; when a trace degrades, it says so instead of pretending. Twenty-five self-tests, a content-security policy, a one-page dossier, and a real recording of the engine at work. Still no backend, no third-party scripts.',
+    media: { type: 'video', src: meridianDemo, aspect: '1280 / 800', caption: 'LOCAL ENGINE · LIVE CAPTURE · 0 NETWORK' },
     link: { href: 'https://drewosi.github.io/lucid-engine/', label: 'Visit' },
   },
   {
