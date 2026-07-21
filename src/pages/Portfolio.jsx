@@ -38,18 +38,7 @@ function ScrollRail() {
 }
 
 function NavLink({ href, children }) {
-  const [hover, setHover] = React.useState(false);
-  return (
-    <a href={href}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        fontFamily: 'var(--font-mono)', fontSize: 'var(--text-label)', fontWeight: 500,
-        letterSpacing: '0.16em', textTransform: 'uppercase',
-        color: hover ? 'var(--text)' : 'var(--text-muted)',
-        transition: 'color var(--ease)',
-      }}>{children}</a>
-  );
+  return <a href={href} className="nav-link">{children}</a>;
 }
 
 /* Fog between chapters — opacity scrubbed by scene progress, never a hard cut.
@@ -206,7 +195,7 @@ function SpecimenScene({ s, i }) {
           <HUDCallout corner={side === 'right' ? 'tl' : 'tr'} index={index} stem={34} delay={200}
             lines={['DATE — ' + s.date, 'STACK — ' + s.stack]} />
           <HUDCallout corner={side === 'right' ? 'br' : 'bl'} stem={34} delay={420}
-            lines={[s.readout, 'STATUS — LIVE']} />
+            lines={[s.readout, 'STATUS — ' + (s.status || 'LIVE')]} />
           <FocusReveal>
             <Tilt>
               <Card variant="feature" style={{ padding: 'var(--space-6, 40px) var(--space-5)' }}>

@@ -7,7 +7,6 @@ import React from 'react';
 export function Button({ variant = 'primary', size = 'md', disabled = false, style, children, ...rest }) {
   const [hover, setHover] = React.useState(false);
   const [active, setActive] = React.useState(false);
-  const [focus, setFocus] = React.useState(false);
 
   const pad = size === 'sm' ? '8px 18px' : size === 'lg' ? '15px 34px' : '11px 26px';
   const fs = size === 'sm' ? '0.625rem' : size === 'lg' ? '0.75rem' : '0.6875rem';
@@ -43,8 +42,6 @@ export function Button({ variant = 'primary', size = 'md', disabled = false, sty
       onMouseLeave={() => { setHover(false); setActive(false); }}
       onMouseDown={() => setActive(true)}
       onMouseUp={() => setActive(false)}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
       style={{
         fontFamily: 'var(--font-mono)', fontWeight: 500, fontSize: fs,
         letterSpacing: '0.16em', textTransform: 'uppercase',
@@ -55,9 +52,7 @@ export function Button({ variant = 'primary', size = 'md', disabled = false, sty
         opacity: disabled ? 0.4 : active ? 0.75 : 1,
         // Press compression — the sanctioned field response. Settles, never springs back past rest.
         transform: active && !disabled ? 'scale(var(--press-scale))' : 'none',
-        boxShadow: focus ? '0 0 0 1px var(--bg), 0 0 0 2px var(--accent-soft)' : 'none',
-        outline: 'none',
-        transition: 'background var(--ease), border-color var(--ease), color var(--ease), opacity var(--ease), box-shadow var(--ease), transform var(--dur-tap) var(--snap-fn)',
+        transition: 'background var(--ease), border-color var(--ease), color var(--ease), opacity var(--ease), transform var(--dur-tap) var(--snap-fn)',
         ...style,
       }}
       {...rest}

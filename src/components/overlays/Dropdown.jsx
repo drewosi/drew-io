@@ -7,7 +7,6 @@ import { useReducedMotion } from '../../hooks/useReveal.js';
  */
 export function Dropdown({ label, items = [], onSelect, align = 'left', style }) {
   const [open, setOpen] = React.useState(false);
-  const [hover, setHover] = React.useState(null);
   const [entered, setEntered] = React.useState(false);
   const reduced = useReducedMotion();
   const ref = React.useRef(null);
@@ -57,13 +56,11 @@ export function Dropdown({ label, items = [], onSelect, align = 'left', style })
           ) : (
             <button key={it.id ?? i}
               onClick={() => { setOpen(false); if (onSelect) onSelect(it.id); }}
-              onMouseEnter={() => setHover(i)}
-              onMouseLeave={() => setHover(null)}
+              className={'dropdown-item' + (it.danger ? ' dropdown-item--danger' : '')}
               style={{
                 display: 'block', width: '100%', textAlign: 'left',
-                background: hover === i ? 'var(--glow)' : 'none', border: 'none', cursor: 'pointer', outline: 'none',
+                border: 'none', cursor: 'pointer',
                 padding: '8px 14px', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-small)',
-                color: it.danger ? 'var(--danger)' : hover === i ? 'var(--text)' : 'var(--text-muted)',
                 opacity: on ? 1 : 0,
                 transition: 'background var(--ease), color var(--ease), opacity 300ms var(--snap-fn) ' + (i * 40) + 'ms',
               }}>{it.label}</button>

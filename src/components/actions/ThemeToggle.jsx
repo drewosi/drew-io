@@ -9,7 +9,6 @@ export function ThemeToggle({ theme: themeProp, onChange, style }) {
     () => document.documentElement.getAttribute('data-theme') || 'dark'
   );
   const theme = themeProp ?? internal;
-  const [hover, setHover] = React.useState(false);
 
   const toggle = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
@@ -21,16 +20,15 @@ export function ThemeToggle({ theme: themeProp, onChange, style }) {
   return (
     <button
       onClick={toggle}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      className="theme-toggle"
       aria-label="Toggle theme"
       style={{
         display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)',
         fontFamily: 'var(--font-mono)', fontSize: 'var(--text-label)', fontWeight: 500,
         letterSpacing: '0.16em', textTransform: 'uppercase',
-        background: hover ? 'var(--glow)' : 'transparent',
-        color: hover ? 'var(--text)' : 'var(--text-muted)',
-        border: '1px solid ' + (hover ? 'var(--accent-soft)' : 'var(--border)'),
+        // background / color / border-color come from the .theme-toggle class,
+        // so :hover and :focus-visible share one look
+        borderWidth: 1, borderStyle: 'solid',
         borderRadius: 'var(--radius-sm)', padding: '9px 16px', cursor: 'pointer',
         transition: 'background var(--ease), color var(--ease), border-color var(--ease)',
         ...style,
