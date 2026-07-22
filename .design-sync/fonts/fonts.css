@@ -1,7 +1,37 @@
 /* DREW.OS brand fonts — self-hosted Geist + Geist Mono (OFL, via @fontsource).
-   The DS tokens reference family 'Geist' (sans) and 'Geist Mono'; these
-   @font-face rules bind those exact names to local woff2 so the bundle is
-   self-contained (no runtime Google Fonts dependency). */
+   The DS tokens reference families 'Geist Sans' (primary), 'Geist' (legacy
+   fallback position), and 'Geist Mono'; these @font-face rules bind those
+   exact names to local woff2 so the bundle is self-contained (no runtime
+   Google Fonts dependency). */
+
+@font-face {
+  font-family: 'Geist Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url(./geist-sans-latin-300-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Geist Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./geist-sans-latin-400-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Geist Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./geist-sans-latin-500-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Geist Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./geist-sans-latin-600-normal.woff2) format('woff2');
+}
 
 @font-face {
   font-family: 'Geist';

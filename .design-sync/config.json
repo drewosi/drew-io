@@ -23,6 +23,9 @@
     "CommandPalette": { "cardMode": "single", "viewport": "560x440" },
     "ScrollScene": { "cardMode": "single", "viewport": "560x440" },
     "FilmGrain": { "cardMode": "single", "viewport": "460x300" },
-    "HUDCallout": { "cardMode": "column" }
+    "HUDCallout": { "cardMode": "column" },
+    "Keymap": { "cardMode": "single", "viewport": "560x440" },
+    "ParticleField": { "cardMode": "single", "viewport": "460x300" },
+    "Wayfinder": { "cardMode": "single", "viewport": "1040x360" }
   }
 }
