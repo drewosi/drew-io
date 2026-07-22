@@ -110,3 +110,38 @@ Igloo-inc-inspired cinematic-scroll system, hand-rolled, zero new dependencies:
   reconcile Skeleton to use it instead of self-injecting.
 - Fonts are pinned to specific `@fontsource` weights copied into `.design-sync/fonts/`. A fontsource major bump could rename files — re-copy from `node_modules/@fontsource/*/files/` if `[FONT_DANGLING]` appears.
 - The `types` field + `@types/react` copy into `node_modules` are tooling scaffolding; on a fresh clone they must be recreated (steps 2–3).
+
+## 2026-07 — three components added (54 → 57): ParticleField, Wayfinder, Keymap
+
+- **ParticleField** (motion) — canvas Fibonacci-sphere atmosphere loop on the shared
+  ticker; preview `Lattice` bounds it in a relative box with a hero text layer (the
+  Landing-hero idiom). Captures mid-rotation and mid-DecodeText — authentic, same triage
+  class as DecodeText. Override: `single 460x300` (FilmGrain treatment).
+- **Wayfinder** (motion) — **renders `null` unless
+  `(min-width: 1000px) and (hover: hover) and (pointer: fine)`**; its card override is
+  `single 1040x360` specifically to clear the 1000px gate (headless chromium reports
+  hover/pointer fine). Shrink that viewport below 1000px and the card goes blank. The
+  hover label chip is interaction-only and never captures.
+- **Keymap** (overlays) — Modal+Kbd composition; preview uses the app's real
+  `KEYMAP_ROWS` from `src/App.jsx`. Override: `single 560x440` (CommandPalette idiom).
+- **Font family rename**: `--font-sans` now leads with `'Geist Sans'` (then `'Geist'`).
+  `.design-sync/fonts/fonts.css` registers BOTH names against the same woff2s —
+  removing the `'Geist Sans'` aliases re-fires `[FONT_MISSING]`.
+- **Playwright/chromium pin (remote env)**: the container's `/opt/pw-browsers` cache is
+  chromium build **1194** → install `playwright@1.56.0` in `.ds-sync/` (latest wants
+  1228 and fails `Executable doesn't exist`). Match the build via
+  `playwright-core/browsers.json` before installing.
+- **conventions.md hover law updated** to mirror the amended MotionLab RULES (field
+  response: ≤4px magnetic pull, ≤2° tilt, press to `--press-scale`) — it previously
+  said "never position", contradicting shipped Magnetic/Tilt/Button press.
+- All 3 graded `good` first capture; render check 57/0 bad/0 thin; zero warn lines.
+
+## Re-sync risks (watch-list)
+
+- `compiled-styles.css` is generated — a re-sync that skips `build-styles.mjs` ships
+  stale tokens silently (motion + any new token file).
+- `types/` is generated and gitignored — skipping the `tsc -p tsconfig.dts.json` step
+  means new barrel exports are invisible to discovery.
+- Keymap's preview inlines `KEYMAP_ROWS` — if `src/App.jsx` changes the shortcut set,
+  the card quietly lags; re-check on app keymap changes.
+- Wayfinder's viewport override and the media-query gate are coupled (see above).

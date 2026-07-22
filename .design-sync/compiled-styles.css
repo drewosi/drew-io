@@ -65,7 +65,7 @@
 /* ── typography.css ── */
 /* DREW.OS — Type tokens. Geist speaks quietly at large sizes; Geist Mono handles the record-keeping. */
 :root {
-  --font-sans: 'Geist', system-ui, sans-serif;
+  --font-sans: 'Geist Sans', 'Geist', system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
 
   --text-display: clamp(3rem, 8vw, 6rem);   /* weight 300, -0.03em, lh 1.02 */
@@ -134,4 +134,11 @@ h1, h2, h3 { font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; }
 
 a { color: var(--accent-soft); text-decoration: none; transition: color var(--ease); }
 a:hover { color: var(--accent); }
+
+/* Keyboard focus — one hairline ring, system-wide. !important intentionally
+   overrides the inline outline:none carried by interactive components. */
+:focus-visible {
+  outline: 1px solid var(--accent-soft) !important;
+  outline-offset: 3px;
+}
 
